@@ -27,6 +27,7 @@ def select_path():
     Terminal.run_command("cd " + Folder_PATH)
     Folder_textbox.insert(index=0.0, text=Folder_PATH)
     update_archtype_list()
+    index_update_archtype_list()
 
 
 Folder_label = ctk.CTkLabel(app, text="Select Hugo Project")
@@ -124,6 +125,7 @@ Page_list_label.place(relx=0.01, rely=0.6)
 Page_list_textbox = ctk.CTkTextbox(app, width=250, height=120, activate_scrollbars=True)
 Page_list_textbox.place(relx=0.01, rely=0.67)
 
+
 # ------------------------ Page List Ends --------------------------------------------------------
 
 # ------------------------ Locale Selector Starts -------------------------------------------------
@@ -139,13 +141,63 @@ def locale_menu_callback(choice):
 
 
 Locale_label = ctk.CTkLabel(app, text="Select Locale")
-Locale_label.place(relx=0.45, rely=0.2)
+Locale_label.place(relx=0.75, rely=0.26)
 with open("locale_list", "r") as file:
     locale_list = file.readlines()
     locale_list = [locale.strip() for locale in locale_list]
 
 Locale_menu = ctk.CTkOptionMenu(app, values=locale_list, dynamic_resizing=False, command=locale_menu_callback)
-Locale_menu.place(relx=0.45, rely=0.26)
+Locale_menu.place(relx=0.75, rely=0.32)
+# ------------------------ Locale Selector ends -------------------------------------------------
+
+# ------------------------ Index Archtype terminal Starts -------------------------------------------------
+Need_index = ctk.StringVar(value="off")
+Need_index_checkbox = ctk.CTkCheckBox(app, text="Need Index?", variable=Need_index, onvalue="on", offvalue="off")
+Need_index_checkbox.place(relx=0.45, rely=0.2)
+
+Need_index_Archtype_label = ctk.CTkLabel(app, text="Select Index Archtype")
+Need_index_Archtype_label.place(relx=0.45, rely=0.26)
+
+
+def index_archtype_menu_callback(choice):
+    """
+    Set Archtype in ArchType_menu
+
+    :param choice:
+    :return: none
+    """
+    Index_Archtype_menu.set(choice)
+
+
+def index_get_archtypes():
+    """
+    get list of archtypes in archetypes folder of Hugo Project
+
+    :return: list of archtypes in archetypes folder of Hugo Project
+    :return: None if archetypes folder not found
+    """
+    try:
+        global Folder_PATH
+        Index_Archtype_Path = Folder_PATH + "/archetypes"
+        Index_archtype_list = os.listdir(Index_Archtype_Path)
+        Index_archtype_list_no_ext = [os.path.splitext(filename)[0] for filename in Index_archtype_list]
+        return Index_archtype_list_no_ext
+    except FileNotFoundError:
+        return ["None"]
+
+
+def index_update_archtype_list():
+    """
+    Update ArchType_menu with list of archtypes in archetypes folder of Hugo Project
+    :return: none
+    """
+    current_list = get_archtypes()
+    Index_Archtype_menu.configure(values=current_list)
+
+
+Index_Archtype_menu = ctk.CTkOptionMenu(app, values=get_archtypes(), command=index_archtype_menu_callback)
+Index_Archtype_menu.place(relx=0.45, rely=0.32)
+Index_Archtype_menu.set("Inherited from Archtype")
 
 # ------------------------ Output terminal Starts -------------------------------------------------
 
@@ -160,6 +212,28 @@ Terminal.shell = True
 
 # ------------------------ Output terminal Ends ---------------------------------------------------
 
+# ------------------------ Generate Index Starts -------------------------------------------------
+
+def generate_index():
+    if Index_Archtype_menu.get() == "Inherited from Archtype":
+        Index_Boilerplate = f"hugo new --kind {ArchType_menu.get()}"
+    else:
+        Index_Boilerplate = f"hugo new --kind {Index_Archtype_menu.get()}"
+
+    Custom_Path = Custom_Path_textbox.get("0.0", "end")
+    Custom_Path = Custom_Path.replace("\n", "")
+    if Custom_Path == "":
+        Custom_Path = "content/"
+    
+    Custom_Path = f'''"{Custom_Path}'''
+
+    locale = Locale_menu.get()
+    command = Index_Boilerplate + " " + Custom_Path + f"_index.{locale}.md"
+    command.replace('"', "")
+    Terminal.run_command(command)
+    Terminal.clear()
+
+
 # ------------------------ Generate Button Starts -------------------------------------------------
 
 def generate():
@@ -167,13 +241,16 @@ def generate():
     Generate pages in Hugo Project
     :return:
     """
+    if Need_index.get() == "on":
+        generate_index()
+
     Boilerplate_command = 'hugo new --kind'
     Archtype = ArchType_menu.get()
 
     Custom_Path = Custom_Path_textbox.get("0.0", "end")
     Custom_Path = Custom_Path.replace("\n", "")
     if Custom_Path == "":
-        Custom_Path = "/"
+        Custom_Path = "content/"
 
     locale = Locale_menu.get()
 
@@ -197,7 +274,7 @@ Generate_button.place(relx=0.45, rely=0.9)
 
 Exit_button = ctk.CTkButton(app, text="Exit", command=app.destroy, font=("Noto Sans", 20), fg_color="#E9524A",
                             hover_color="#854040")
-Exit_button.place(relx=0.75, rely=0.9)
+Exit_button.place(relx=0.77, rely=0.9)
 
 # ------------------------ Generate Button Ends ---------------------------------------------------
 
