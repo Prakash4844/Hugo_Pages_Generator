@@ -125,6 +125,10 @@ Page_list_label.place(relx=0.01, rely=0.6)
 Page_list_textbox = ctk.CTkTextbox(app, width=250, height=120, activate_scrollbars=True)
 Page_list_textbox.place(relx=0.01, rely=0.67)
 
+Page_list_label_precedence = ctk.CTkLabel(app, text="If Specified, This will \n"
+                                                    "always overwrite page count slider")
+Page_list_label_precedence.place(relx=0.04, rely=0.92)
+
 
 # ------------------------ Page List Ends --------------------------------------------------------
 
@@ -212,28 +216,6 @@ Terminal.shell = True
 
 # ------------------------ Output terminal Ends ---------------------------------------------------
 
-# ------------------------ Generate Index Starts -------------------------------------------------
-
-def generate_index():
-    if Index_Archtype_menu.get() == "Inherited from Archtype":
-        Index_Boilerplate = f"hugo new --kind {ArchType_menu.get()}"
-    else:
-        Index_Boilerplate = f"hugo new --kind {Index_Archtype_menu.get()}"
-
-    Custom_Path = Custom_Path_textbox.get("0.0", "end")
-    Custom_Path = Custom_Path.replace("\n", "")
-    if Custom_Path == "":
-        Custom_Path = "content/"
-    
-    Custom_Path = f'''"{Custom_Path}'''
-
-    locale = Locale_menu.get()
-    command = Index_Boilerplate + " " + Custom_Path + f"_index.{locale}.md"
-    command.replace('"', "")
-    Terminal.run_command(command)
-    Terminal.clear()
-
-
 # ------------------------ Generate Button Starts -------------------------------------------------
 
 def generate():
@@ -241,8 +223,6 @@ def generate():
     Generate pages in Hugo Project
     :return:
     """
-    if Need_index.get() == "on":
-        generate_index()
 
     Boilerplate_command = 'hugo new --kind'
     Archtype = ArchType_menu.get()
@@ -255,17 +235,28 @@ def generate():
     locale = Locale_menu.get()
 
     Page_list = Page_list_textbox.get("0.0", "end")
-    Page_list = Page_list.split("\n")
+    Page_list.replace("\n", "")
+    Page_list = Page_list.split()
     if Page_list == ['', '']:
         page_count_slider_value = page_count_slider.get()
         Page_list = [(Archtype + str(i)).strip() + f'.{locale}.md' for i in range(1, int(page_count_slider_value) + 1)]
+    else:
+        Page_list = [page.strip() + f'.{locale}.md' for page in Page_list]
+    if Need_index.get() == "on":
+        if Index_Archtype_menu.get() == "Inherited from Archtype":
+            Page_list.append(f"_index.{locale}.md")
+        else:
+            command = Boilerplate_command + " " + f"{Index_Archtype_menu.get()}" + " " + f'''"{Custom_Path}''' + \
+                      f'_index.{locale}.md"'
+            command.strip()
+            Terminal.run_command(command)
+
     for page in Page_list:
         Custom_page = f'''"{Custom_Path}{page}"'''
         command = Boilerplate_command + " " + Archtype + " " + Custom_page
         command.strip()
         Terminal.run_command(command)
         Terminal.clear()
-    Terminal.clear()
 
 
 Generate_button = ctk.CTkButton(app, text="Generate", font=("Noto Sans", 20), fg_color="#59C837", hover_color="#476A4A",
