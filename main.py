@@ -112,7 +112,7 @@ def page_slider_event(value):
 
 Page_count_label = ctk.CTkLabel(app, text="Number of Pages: 1 \n(Note: this will create page with archtype names)")
 Page_count_label.place(relx=0.01, rely=0.45)
-page_count_slider = ctk.CTkSlider(app, width=250, from_=1, to=100, orientation="horizontal", command=page_slider_event)
+page_count_slider = ctk.CTkSlider(app, width=250, from_=1, to=500, orientation="horizontal", command=page_slider_event)
 page_count_slider.set(1)
 page_count_slider.place(relx=0.03, rely=0.52)
 
