@@ -106,13 +106,15 @@ def page_slider_event(value):
     """
     global Page_count
     Page_count = int(value)
-    Page_count_label.configure(text="Number of Pages: " + str(Page_count) + "\n(Note: this will create page with "
-                                                                            "archtype names)")
+    Page_count_label.configure(text="Number of Pages: " + str(Page_count) +
+                                    "\n(Note: this will create page with archtype names)")
 
 
-Page_count_label = ctk.CTkLabel(app, text="Number of Pages: 1 \n(Note: this will create page with archtype names)")
+Page_count_label = ctk.CTkLabel(app, text="Number of Pages: 1 \n(Note: this will create page with "
+                                          "archtype names)")
 Page_count_label.place(relx=0.01, rely=0.45)
-page_count_slider = ctk.CTkSlider(app, width=250, from_=1, to=500, orientation="horizontal", command=page_slider_event)
+page_count_slider = ctk.CTkSlider(app, width=250, from_=1, to=500, orientation="horizontal",
+                                  command=page_slider_event)
 page_count_slider.set(1)
 page_count_slider.place(relx=0.03, rely=0.52)
 
@@ -120,7 +122,8 @@ page_count_slider.place(relx=0.03, rely=0.52)
 
 # ------------------------ Page List Starts ------------------------------------------------------
 
-Page_list_label = ctk.CTkLabel(app, text="Page List Put each page name in new line \n(Use this or Page count)")
+Page_list_label = ctk.CTkLabel(app, text="Page List Put each page name in new line \n"
+                                         "(Use this or Page count)")
 Page_list_label.place(relx=0.01, rely=0.6)
 Page_list_textbox = ctk.CTkTextbox(app, width=250, height=120, activate_scrollbars=True)
 Page_list_textbox.place(relx=0.01, rely=0.67)
@@ -156,7 +159,8 @@ Locale_menu.place(relx=0.75, rely=0.32)
 
 # ------------------------ Index Archtype terminal Starts -------------------------------------------------
 Need_index = ctk.StringVar(value="off")
-Need_index_checkbox = ctk.CTkCheckBox(app, text="Need Index?", variable=Need_index, onvalue="on", offvalue="off")
+Need_index_checkbox = ctk.CTkCheckBox(app, text="Need Index?", variable=Need_index, onvalue="on",
+                                      offvalue="off")
 Need_index_checkbox.place(relx=0.45, rely=0.2)
 
 Need_index_Archtype_label = ctk.CTkLabel(app, text="Select Index Archtype")
@@ -207,8 +211,8 @@ Index_Archtype_menu.set("Inherited from Archtype")
 
 Terminal_label = ctk.CTkLabel(app, text="Output Terminal")
 Terminal_label.place(relx=0.45, rely=0.4)
-Terminal = Terminal(app, relief="sunken", background="#272629", foreground="white", font="Hack 8", height=15, width=60,
-                    cursor="arrow", takefocus=False)
+Terminal = Terminal(app, relief="sunken", background="#272629", foreground="white", font="Hack 8",
+                    height=15, width=60, cursor="arrow", takefocus=False)
 Terminal.basename = "Zaphkiel $"
 Terminal.place(relx=0.45, rely=0.45)
 Terminal.shell = True
@@ -237,17 +241,18 @@ def generate():
     Page_list = Page_list_textbox.get("0.0", "end")
     Page_list.replace("\n", "")
     Page_list = Page_list.split()
-    if Page_list == ['', '']:
+    if not Page_list:
         page_count_slider_value = page_count_slider.get()
-        Page_list = [(Archtype + str(i)).strip() + f'.{locale}.md' for i in range(1, int(page_count_slider_value) + 1)]
+        Page_list = [(Archtype + str(i)).strip() + f'.{locale}.md' for i in
+                     range(1, int(page_count_slider_value) + 1)]
     else:
         Page_list = [page.strip() + f'.{locale}.md' for page in Page_list]
     if Need_index.get() == "on":
         if Index_Archtype_menu.get() == "Inherited from Archtype":
             Page_list.append(f"_index.{locale}.md")
         else:
-            command = Boilerplate_command + " " + f"{Index_Archtype_menu.get()}" + " " + f'''"{Custom_Path}''' + \
-                      f'_index.{locale}.md"'
+            command = Boilerplate_command + " " + \
+                      f"{Index_Archtype_menu.get()}" + " " + f'''"{Custom_Path}''' + f'_index.{locale}.md"'
             command.strip()
             Terminal.run_command(command)
 
@@ -256,11 +261,12 @@ def generate():
         command = Boilerplate_command + " " + Archtype + " " + Custom_page
         command.strip()
         Terminal.run_command(command)
-        Terminal.clear()
+
+    # Terminal.clear()
 
 
-Generate_button = ctk.CTkButton(app, text="Generate", font=("Noto Sans", 20), fg_color="#59C837", hover_color="#476A4A",
-                                text_color="#000000", command=generate)
+Generate_button = ctk.CTkButton(app, text="Generate", font=("Noto Sans", 20), fg_color="#59C837",
+                                hover_color="#476A4A", text_color="#000000", command=generate)
 Generate_button.place(relx=0.45, rely=0.9)
 
 Exit_button = ctk.CTkButton(app, text="Exit", command=app.destroy, font=("Noto Sans", 20), fg_color="#E9524A",
@@ -269,5 +275,6 @@ Exit_button.place(relx=0.77, rely=0.9)
 
 # ------------------------ Generate Button Ends ---------------------------------------------------
 
-# ------------------------ Main Loop ---------------------------------------------------------------
+# ------------------------ Main Loop Starts -------------------------------------------------------
 app.mainloop()
+# ------------------------ Main Loop Ends----------------------------------------------------------
