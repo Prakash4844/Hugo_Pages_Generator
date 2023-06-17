@@ -241,14 +241,17 @@ def generate():
     Page_list = Page_list_textbox.get("0.0", "end")
     # Page_list.replace("\n", "")
     Page_list = Page_list.split("\n")
-    if not Page_list:
+    Page_list = [page for page in Page_list if page != '']
+    if not Page_list or Page_list == ['', '']:
         page_count_slider_value = page_count_slider.get()
         Page_list = [(Archtype + str(i)).strip() + f'.{locale}.md' for i in
                      range(1, int(page_count_slider_value) + 1)]
     else:
         Page_list = [page.strip() + f'.{locale}.md' for page in Page_list]
     if Need_index.get() == "on":
-        if Index_Archtype_menu.get() == "Inherited from Archtype":
+        if Custom_Path == "content/":
+            Page_list.append(f"index.{locale}.md")
+        elif Index_Archtype_menu.get() == "Inherited from Archtype":
             Page_list.append(f"_index.{locale}.md")
         else:
             command = Boilerplate_command + " " + \
