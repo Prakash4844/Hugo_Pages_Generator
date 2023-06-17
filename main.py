@@ -239,8 +239,8 @@ def generate():
     locale = Locale_menu.get()
 
     Page_list = Page_list_textbox.get("0.0", "end")
-    Page_list.replace("\n", "")
-    Page_list = Page_list.split()
+    # Page_list.replace("\n", "")
+    Page_list = Page_list.split("\n")
     if not Page_list:
         page_count_slider_value = page_count_slider.get()
         Page_list = [(Archtype + str(i)).strip() + f'.{locale}.md' for i in
