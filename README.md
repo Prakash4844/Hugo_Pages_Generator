@@ -38,11 +38,6 @@ module, which is a modified version of Tkinter module. and HUGO CLI to generate 
 - Run `python main.py`
 - Done!
 
-#### OR
-
-I might make a standalone executable file for this program in the future.
-
-
 ### Usage
 - Run `python main.py`
 - Enter the path of your HUGO project
