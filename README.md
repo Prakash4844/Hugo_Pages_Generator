@@ -7,6 +7,13 @@ So, i kind of did.
 This is just a program I made during learning Python GUI, Don't expect it to be perfect. it uses python CustomTkinter 
 module, which is a modified version of Tkinter module. and HUGO CLI to generate pages.
 
+### Features:
+- Generate 100's of Page in Seconds.
+- Custom Path option for better management.
+- Major Locale Support.
+- Custom file name or file count option.
+- Automatic Handling of INDEX.md and _INDEX.md for leaf bundle.
+
 ### Here's UI Screenshot
 
 ![UI Screenshot](Screenshots/UI.png)
@@ -18,13 +25,16 @@ module, which is a modified version of Tkinter module. and HUGO CLI to generate 
 - Tkinter
 - tkterminal
 
-### Installation
+### Installation (Easy and Recommended) (Tested on Linux)
+- Download Latest Release from [here](https://github.com/Prakash4844/Hugo_Pages_Generator/releases/)
+- Extract it
+- Run `Hugo Page Generator` binary file using terminal by typing `./Hugo\ Page\ Generator`
+
+### installation (Manual)
 - Install Python 3.6 or above
 - Install HUGO and add it to PATH
-- Install CustomTkinter
-- Install Tkinter
-- Install tkterminal
 - Clone this repo
+- Install requirements by running `pip install -r requirements.txt`
 - Run `python main.py`
 - Done!
 
