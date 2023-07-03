@@ -233,13 +233,13 @@ def generate():
 
     Custom_Path = Custom_Path_textbox.get("0.0", "end")
     Custom_Path = Custom_Path.replace("\n", "")
+    Custom_Path.replace(" ", "\ ")
     if Custom_Path == "":
         Custom_Path = "content/"
 
     locale = Locale_menu.get()
 
     Page_list = Page_list_textbox.get("0.0", "end")
-    # Page_list.replace("\n", "")
     Page_list = Page_list.split("\n")
     Page_list = [page for page in Page_list if page != '']
     if not Page_list or Page_list == ['', '']:
