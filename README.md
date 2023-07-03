@@ -45,7 +45,7 @@ module, which is a modified version of Tkinter module. and HUGO CLI to generate 
 - Put Custom path if you want to make page in custom path
   - Ex. `Content/blog/`  
   - default is `content/`
-  - No need for "" in path if custom path have spaces, as they are handled(see #2)
+  - No need for "" in path if custom path have spaces, as they are handled(see [#2](https://github.com/Prakash4844/Hugo_Pages_Generator/issues/2))
   - Note: If custom path doesn't have last `/` then the last word in path will be prefixed to each filename
   - custom path need to start with `content` and end with a `/`, only ignore this if you know what you are doing
 - Enter the number of pages you want to make or Enter Page name in the page name textbox each on new line (Note: If page
