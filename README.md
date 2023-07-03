@@ -67,7 +67,7 @@ Archetype of the page
 - Install requirements by running `pip install -r requirements.txt`
 - Run 
   ```bash
-  pyinstaller --noconfirm --onedir --console --icon "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/hugo.ico" --name "Hugo Page Generator" --add-data "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/hugo.ico:." --add-data "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/locale_list:." --add-data "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/README.md:." --add-data "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/venv/lib/python3.11/site-packages/customtkinter:customtkinter/"  "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/main.py"
+  pyinstaller --noconfirm --onedir --console --icon "/hugo.ico" --name "Hugo Page Generator" --add-data "/hugo.ico:." --add-data "/locale_list:." --add-data "/README.md:." --add-data "/venv/lib/python3.11/site-packages/customtkinter:customtkinter/"  "/main.py"
   ```
 - Done!
 
