@@ -8,7 +8,7 @@ This is just a program I made during learning Python GUI, Don't expect it to be 
 module, which is a modified version of Tkinter module. and HUGO CLI to generate pages.
 
 ### Features:
-- Generate 100's of Page in Seconds.
+- Generate 500 Pages in Seconds.
 - Custom Path option for better management.
 - Major Locale Support.
 - Custom file name or file count option.
@@ -42,7 +42,12 @@ module, which is a modified version of Tkinter module. and HUGO CLI to generate 
 - Run `python main.py`
 - Enter the path of your HUGO project
 - Select the type of page you want to make(Archetype)
-- Put Custom path if you want to make page in custom path(Ex. `Content/blog/` ), (default is `content/`)
+- Put Custom path if you want to make page in custom path
+  - Ex. `Content/blog/`  
+  - default is `content/`
+  - No need for "" in path if custom path have spaces, as they are handled(see #2)
+  - Note: If custom path doesn't have last `/` then the last word in path will be prefixed to each filename
+  - custom path need to start with `content` and end with a `/`, only ignore this if you know what you are doing
 - Enter the number of pages you want to make or Enter Page name in the page name textbox each on new line (Note: If page
 name is entered then number of pages will be ignored)
 - IF index is needed check the checkbox of it
