@@ -59,4 +59,16 @@ Archetype of the page
 - Done!
 - Bonus: You can Star this repo if you want to 😀
 
+### Building
+
+- Install Python 3.6 or above
+- Install HUGO and add it to PATH
+- Clone this repo
+- Install requirements by running `pip install -r requirements.txt`
+- Run 
+  ```bash
+  pyinstaller --noconfirm --onedir --console --icon "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/hugo.ico" --name "Hugo Page Generator" --add-data "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/hugo.ico:." --add-data "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/locale_list:." --add-data "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/README.md:." --add-data "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/venv/lib/python3.11/site-packages/customtkinter:customtkinter/"  "/home/zaphkiel/Documents/Github/Python/Hugo_Pages_Generator/main.py"
+  ```
+- Done!
+
 #### Note: Do not manually interact with integrated terminal.
