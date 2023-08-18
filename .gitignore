@@ -1,2 +1,6 @@
-
+/dist/
 /output/
+/build/
+
+*.pyc
+/build/Hugo Page Generator/
