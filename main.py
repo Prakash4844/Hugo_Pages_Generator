@@ -40,7 +40,7 @@ Browse_path_button.place(relx=0.799, rely=0.1)
 # ------------------------ PATH SELECTOR ENDS -------------------------------------------------
 
 # ------------------------ Archetypes SELECTOR Start -------------------------------------------------
-Archtype_label = ctk.CTkLabel(app, text="Select Archtype")
+Archtype_label = ctk.CTkLabel(app, text="Archtype")
 Archtype_label.place(relx=0.01, rely=0.17)
 
 
@@ -88,7 +88,7 @@ ArchType_menu.set("default")
 
 # ------------------------ Custom PATH STARTS -----------------------------------------------------
 
-Custom_Path_label = ctk.CTkLabel(app, text="Put custom path here(optional) Ex: content/blog/")
+Custom_Path_label = ctk.CTkLabel(app, text="Custom path - Ex: content/blog/")
 Custom_Path_label.place(relx=0.01, rely=0.3)
 Custom_Path_textbox = ctk.CTkTextbox(app, width=250, height=30)
 Custom_Path_textbox.place(relx=0.01, rely=0.36)
@@ -107,7 +107,7 @@ def page_slider_event(value):
     global Page_count
     Page_count = int(value)
     Page_count_label.configure(text="Number of Pages: " + str(Page_count) +
-                                    "\n(Note: this will create page with archtype names)")
+                                    "\n(Creates page with archtype names)")
 
 
 Page_count_label = ctk.CTkLabel(app, text="Number of Pages: 1 \n(Note: this will create page with "
@@ -122,15 +122,14 @@ page_count_slider.place(relx=0.03, rely=0.52)
 
 # ------------------------ Page List Starts ------------------------------------------------------
 
-Page_list_label = ctk.CTkLabel(app, text="Page List Put each page name in new line \n"
+Page_list_label = ctk.CTkLabel(app, text="Page List (each on newline)\n"
                                          "(Use this or Page count)")
-Page_list_label.place(relx=0.01, rely=0.6)
+Page_list_label.place(relx=0.07, rely=0.6)
 Page_list_textbox = ctk.CTkTextbox(app, width=250, height=120, activate_scrollbars=True)
 Page_list_textbox.place(relx=0.01, rely=0.67)
 
-Page_list_label_precedence = ctk.CTkLabel(app, text="If Specified, This will \n"
-                                                    "always overwrite page count slider")
-Page_list_label_precedence.place(relx=0.04, rely=0.92)
+Page_list_label_precedence = ctk.CTkLabel(app, text="If Specified, This will overwrites page counter")
+Page_list_label_precedence.place(relx=0.005, rely=0.92)
 
 
 # ------------------------ Page List Ends --------------------------------------------------------
@@ -147,23 +146,23 @@ def locale_menu_callback(choice):
     Locale_menu.set(choice)
 
 
-Locale_label = ctk.CTkLabel(app, text="Select Locale")
-Locale_label.place(relx=0.75, rely=0.26)
+Locale_label = ctk.CTkLabel(app, text="Locale")
+Locale_label.place(relx=0.77, rely=0.26)
 with open("locale_list", "r") as file:
     locale_list = file.readlines()
     locale_list = [locale.strip() for locale in locale_list]
 
 Locale_menu = ctk.CTkOptionMenu(app, values=locale_list, dynamic_resizing=False, command=locale_menu_callback)
-Locale_menu.place(relx=0.75, rely=0.32)
+Locale_menu.place(relx=0.77, rely=0.32)
 # ------------------------ Locale Selector ends -------------------------------------------------
 
 # ------------------------ Index Archtype terminal Starts -------------------------------------------------
 Need_index = ctk.StringVar(value="off")
-Need_index_checkbox = ctk.CTkCheckBox(app, text="Need Index?", variable=Need_index, onvalue="on",
+Need_index_checkbox = ctk.CTkCheckBox(app, text="Index?", variable=Need_index, onvalue="on",
                                       offvalue="off")
 Need_index_checkbox.place(relx=0.45, rely=0.2)
 
-Need_index_Archtype_label = ctk.CTkLabel(app, text="Select Index Archtype")
+Need_index_Archtype_label = ctk.CTkLabel(app, text="Index Archtype")
 Need_index_Archtype_label.place(relx=0.45, rely=0.26)
 
 
@@ -205,11 +204,11 @@ def index_update_archtype_list():
 
 Index_Archtype_menu = ctk.CTkOptionMenu(app, values=get_archtypes(), command=index_archtype_menu_callback)
 Index_Archtype_menu.place(relx=0.45, rely=0.32)
-Index_Archtype_menu.set("Inherited from Archtype")
+Index_Archtype_menu.set("Inherits Archtype")
 
 # ------------------------ Output terminal Starts -------------------------------------------------
 
-Terminal_label = ctk.CTkLabel(app, text="Output Terminal")
+Terminal_label = ctk.CTkLabel(app, text="Output")
 Terminal_label.place(relx=0.45, rely=0.4)
 Terminal = Terminal(app, relief="sunken", background="#272629", foreground="white", font="Hack 8",
                     height=15, width=60, cursor="arrow", takefocus=False)
